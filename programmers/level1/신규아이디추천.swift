@@ -4,14 +4,13 @@ func solution(_ new_id:String) -> String {
     var result = new_id.lowercased()
     
     do {
-        let regex = try NSRegularExpression(pattern: "[^a-z0-9-_.]")
+        var regex = try NSRegularExpression(pattern: "[^a-z0-9-_.]")
         result = regex.stringByReplacingMatches(in: result, range: NSRange(location: 0, length: result.count), withTemplate: "")
+        regex = try NSRegularExpression(pattern: "[.]{2,}")
+        result = regex.stringByReplacingMatches(in: result, range: NSRange(location: 0, length: result.count), withTemplate: ".")
     } catch {
         print(error.localizedDescription)
     }
-    
-    result = result.replacingOccurrences(of: "...", with: ".")
-    result = result.replacingOccurrences(of: "..", with: ".")
     
     result = result.trimmingCharacters(in: ["."])
     
@@ -35,7 +34,7 @@ func solution(_ new_id:String) -> String {
     return result
 }
 
-let new_id = "z-+.^."
+let new_id = "...!@BaT#*..y.abcdefghijklm"
 
 solution(new_id)
 
