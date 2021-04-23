@@ -1,13 +1,25 @@
 def solution(number, k):
-    answer = list(number)
-    for _ in range(k):
-        isRemoved = False
-        for first, second in zip(answer[:-1], answer[1:]):
-            if first < second:
-                answer.remove(first)
-                isRemoved = True
-                break
-        if not isRemoved:
-            answer = answer[:-1]
+    index = 0
+    count = 0
+    while True:
+        if count == k:
+            break
+        if index == len(number) - 1:
+            number = number[:-1]
+            index -= 1
+            count += 1
+            continue
+        if number[index] < number[index + 1]:
+            number = number[:index] + number[index + 1:]
+            count += 1
+            if index > 0:
+                index -= 1
+        else:
+            index += 1
+    return number
 
-    return "".join(answer)
+
+k = 4
+number = '222222'
+
+print(solution(number, k))
